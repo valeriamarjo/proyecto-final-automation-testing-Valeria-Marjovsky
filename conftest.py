@@ -5,14 +5,14 @@ from utils.loginpage import login
 
 @pytest.fixture
 def driver(): #inicalización del navegador para las pruebas
-    options = webdriver.ChromeOptions
+    options = webdriver.ChromeOptions()
     options.add_argument("--incognito")
 
-    driver= webdriver.chrome(options= options)
+    driver= webdriver.Chrome(options= options)
 
     yield driver #pausa el código hasta aca
 
-    driver.quit
+    driver.quit()
 
 @pytest.fixture
 def login_in_driver(driver):
