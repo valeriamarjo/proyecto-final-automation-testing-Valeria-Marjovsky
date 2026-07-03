@@ -1,0 +1,6 @@
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Reportes locales de Valeria (Opcional, lo que hablamos antes)
+Test_resultados/

@@ -1,34 +1,42 @@
-# pages/inventory_page.py
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from pages.cart_page import CartPage
 
 class InventoryPage:
     def __init__(self, driver):
         self.driver = driver
-      
-        # Tus selectores originales (corregidos en mayúsculas)
-        self.contador_Carrito = (By.CLASS_NAME, "shopping_cart_badge")
+        self.contador_carrito = (By.CLASS_NAME, "shopping_cart_badge")
         self.link_carrito = (By.CLASS_NAME, "shopping_cart_link")
         self.nombres_productos = (By.CLASS_NAME, "inventory_item_name")
-        
-        # Selector para los botones de agregar al carrito (Clase 8/9)
-        self.btn_inventario = (By.CLASS_NAME, "btn_inventory")
+        self.btn_agregar_primer_producto = (By.ID, "add-to-cart-sauce-labs-backpack")
 
     def obtener_titulo(self):
-        # Devuelve el título del navegador
         return self.driver.title
 
     def obtener_contador(self):
-        # Devuelve el texto del número del carrito
-        return self.driver.find_element(*self.contador_Carrito).text
+        try:
+            return self.driver.find_element(*self.contador_carrito).text
+        except:
+            return "0"
 
-    def agregar_al_carrito(self):
-        # Corregido: Agregamos los paréntesis obligatorios en .click() para que ejecute la acción
-        self.driver.find_elements(*self.btn_inventario)[0].click()
+    def esperar_actualizacion_contador(self, valor_esperado):
+        try:
+            WebDriverWait(self.driver, 5).until(
+                EC.text_to_be_present_in_element(self.contador_carrito, str(valor_esperado))
+            )
+            return True
+        except:
+            return False
 
-    def nombre_producto_uno(self):
-        # Devuelve el texto del primer producto de la lista
+    def agregar_primer_producto_al_carrito(self):
+        elemento = self.driver.find_element(*self.btn_agregar_primer_producto)
+        self.driver.execute_script("arguments[0].click();", elemento)
+    
+    def obtener_nombre_primer_producto(self):
         return self.driver.find_elements(*self.nombres_productos)[0].text
 
     def ir_al_carrito(self):
-        # Corregido: Agregamos los paréntesis en .click()
-        self.driver.find_element(*self.link_carrito).click()
+        elemento = self.driver.find_element(*self.link_carrito)
+        self.driver.execute_script("arguments[0].click();", elemento)
+        return CartPage(self.driver)
