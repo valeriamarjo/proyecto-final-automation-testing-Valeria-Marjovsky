@@ -8,8 +8,8 @@ Repositorio de automatización para la Entrega Final de Automatización de Proce
 
 Para obtener una copia local de este proyecto y ejecutar las pruebas, ejecutá los siguientes comandos en tu terminal:
 
-git clone https://github.com/valeriamarjo/EntregaFinal.git
-cd EntregaFinal
+git clone https://github.com/valeriamarjo/proyecto-final-automation-testing-valeria-marjovsky.git
+cd proyecto-final-automation-testing-valeria-marjovsky
 
 ---
 
